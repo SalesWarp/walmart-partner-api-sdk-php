@@ -116,7 +116,7 @@ $order = $client->cancel(
                     'orderLineStatuses' => [
                         [
                             'status' => 'Cancelled',
-                            'cancellationReason' => 'CANCEL_BY_SELLER',
+                            'cancellationReason' => 'CUSTOMER_REQUESTED_SELLER_TO_CANCEL',
                             'statusQuantity' => [
                                 'unitOfMeasurement' => 'EACH',
                                 'amount' => 1

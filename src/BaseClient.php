@@ -55,7 +55,8 @@ class BaseClient extends GuzzleClient
                 'defaults' => [
                     'auth' => [
                         $config['consumerId'],
-                        $config['privateKey']
+                        $config['privateKey'],
+                        $config['token'],
                     ]
                 ],
             ],

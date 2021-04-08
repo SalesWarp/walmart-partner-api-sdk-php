@@ -18,19 +18,9 @@ class Price extends BaseClient
     public function __construct(array $config = [], $env = self::ENV_PROD)
     {
         // Apply some defaults.
-        $this->wmConsumerChannelType = $config['wmConsumerChannelType'];
-
-        // Apply some defaults.
-        $config = array_merge_recursive($config, [
+        $config += [
             'description_path' => __DIR__ . '/descriptions/price.php',
-            'http_client_options' => [
-                'defaults' => [
-                    'headers' => [
-                        'WM_CONSUMER.CHANNEL.TYPE' => $this->wmConsumerChannelType,
-                    ],
-                ],
-            ],
-        ]);
+        ];
 
         // Create the client.
         parent::__construct(

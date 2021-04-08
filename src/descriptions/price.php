@@ -4,7 +4,7 @@
     'operations' => [
         'Update' => [
             'httpMethod' => 'PUT',
-            'uri' => '/{ApiVersion}/prices',
+            'uri' => '/{ApiVersion}/price',
             'responseModel' => 'Result',
             'data' => [
                 'xmlRoot' => [

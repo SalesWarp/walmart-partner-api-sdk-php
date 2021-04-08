@@ -47,10 +47,7 @@ class Item extends BaseClient
             '/MPItemFeed/MPItem' => [
                 'sendItemsAs' => 'MPItem',
                 'includeWrappingTag' => false,
-            ],
-            '/variantAttributeNames' => [
-                'sendItemsAs' => 'variantAttributeName',
-            ],
+            ]
         ];
 
         $a2x = new A2X($items, $schema);

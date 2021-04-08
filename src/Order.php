@@ -19,7 +19,7 @@ class Order extends BaseClient
     const STATUS_SHIPPED = 'Shipped';
     const STATUS_CANCELLED = 'Cancelled';
 
-    const CANCEL_REASON = 'CANCEL_BY_SELLER';
+    const CANCEL_REASON = 'CUSTOMER_REQUESTED_SELLER_TO_CANCEL';
 
     public $wmConsumerChannelType;
 

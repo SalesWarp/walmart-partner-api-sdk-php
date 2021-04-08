@@ -16,7 +16,7 @@
                     'required' => false,
                     'type' => 'integer',
                     'location' => 'query',
-                    'maximum' => 200,
+                    'maximum' => 10,
                 ],
                 'createdStartDate' => [
                     'required' => true,
@@ -85,7 +85,7 @@
                     'required' => false,
                     'type' => 'integer',
                     'location' => 'query',
-                    'maximum' => 200,
+                    'maximum' => 10,
                 ],
                 'nextCursor' => [
                     'required' => false,

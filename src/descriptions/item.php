@@ -1,10 +1,10 @@
 <?php return [
     'baseUrl' => 'https://marketplace.walmartapis.com',
-    'apiVersion' => 'v2',
+    'apiVersion' => 'v3',
     'operations' => [
         'List' => [
             'httpMethod' => 'GET',
-            'uri' => '/{ApiVersion}/items',
+            'uri' => '/{ApiVersion}/items{+nextCursor}',
             'responseModel' => 'Result',
             'parameters' => [
                 'ApiVersion' => [
@@ -26,6 +26,11 @@
                 'offset' => [
                     'required' => false,
                     'type' => 'integer',
+                    'location' => 'query',
+                ],
+                'nextCursor' => [
+                    'required' => true,
+                    'type' => 'string',
                     'location' => 'query',
                 ],
             ],

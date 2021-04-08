@@ -1,6 +1,6 @@
 <?php return [
     'baseUrl' => 'https://marketplace.walmartapis.com',
-    'apiVersion' => 'v2',
+    'apiVersion' => 'v3',
     'operations' => [
         'List' => [
             'httpMethod' => 'GET',
@@ -65,7 +65,7 @@
         ],
         'GetFeedItem' => [
             'httpMethod' => 'GET',
-            'uri' => '/{ApiVersion}/feeds/feeditems/{feedId}?{+nextCursor}',
+            'uri' => '/{ApiVersion}/feeds/{feedId}?{+nextCursor}',
             'responseModel' => 'Result',
             'parameters' => [
                 'ApiVersion' => [
