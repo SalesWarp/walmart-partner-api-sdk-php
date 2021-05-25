@@ -1,5 +1,5 @@
 <?php return [
-    'baseUrl' => 'https://marketplace.walmartapis.com',
+    'baseUri' => 'https://marketplace.walmartapis.com',
     'apiVersion' => 'v3',
     'operations' => [
         'PrivateListReleased' => [
@@ -92,6 +92,41 @@
                     'type' => 'string',
                     'location' => 'uri',
                 ],
+                'lastModifiedStartDate' => [
+                    'required' => false,
+                    'type' => 'string',
+                    'location' => 'query',
+                ],
+                'lastModifiedEndDate' => [
+                    'required' => false,
+                    'type' => 'string',
+                    'location' => 'query',
+                ],
+                'productInfo' => [
+                    'required' => false,
+                    'type' => 'string',
+                    'location' => 'query',
+                ],
+                'shipNodeType' => [
+                    'required' => false,
+                    'type' => 'string',
+                    'location' => 'query',
+                ],
+                'shippingProgramType' => [
+                    'required' => false,
+                    'type' => 'string',
+                    'location' => 'query',
+                ],
+                'replacementInfo' => [
+                    'required' => false,
+                    'type' => 'string',
+                    'location' => 'query',
+                ],
+                'orderType' => [
+                    'required' => false,
+                    'type' => 'string',
+                    'location' => 'query',
+                ],
             ]
         ],
         'Get' => [
@@ -130,7 +165,7 @@
                     'required' => true,
                     'type' => 'string',
                     'location' => 'header',
-                    'default' => 'application/xml',
+                    'default' => 'application/json',
                 ],
             ],
         ],
@@ -148,7 +183,7 @@
                     'required' => true,
                     'type' => 'string',
                     'location' => 'header',
-                    'default' => 'application/xml',
+                    'default' => 'application/json',
                 ],
                 'purchaseOrderId' => [
                     'required' => true,
@@ -158,7 +193,7 @@
                 'order' => [
                     'required' => true,
                     'type' => 'string',
-                    'location' => 'body',
+                    'location' => 'json',
                 ],
             ],
         ],
@@ -176,7 +211,7 @@
                     'required' => true,
                     'type' => 'string',
                     'location' => 'header',
-                    'default' => 'application/xml',
+                    'default' => 'application/json',
                 ],
                 'purchaseOrderId' => [
                     'required' => true,
@@ -186,7 +221,7 @@
                 'order' => [
                     'required' => true,
                     'type' => 'string',
-                    'location' => 'body',
+                    'location' => 'json',
                 ],
             ],
         ],
@@ -214,7 +249,7 @@
                     'required' => true,
                     'type' => 'string',
                     'location' => 'header',
-                    'default' => 'application/xml',
+                    'default' => 'application/json',
                 ],
                 'order' => [
                     'required' => true,
@@ -231,7 +266,7 @@
                 'statusCode' => ['location' => 'statusCode'],
             ],
             'additionalProperties' => [
-                'location' => 'xml'
+                'location' => 'json'
             ],
         ]
     ]

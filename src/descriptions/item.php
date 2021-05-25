@@ -1,5 +1,5 @@
 <?php return [
-    'baseUrl' => 'https://marketplace.walmartapis.com',
+    'baseUri' => 'https://marketplace.walmartapis.com',
     'apiVersion' => 'v3',
     'operations' => [
         'List' => [
@@ -29,7 +29,7 @@
                     'location' => 'query',
                 ],
                 'nextCursor' => [
-                    'required' => true,
+                    'required' => false,
                     'type' => 'string',
                     'location' => 'query',
                 ],
@@ -89,7 +89,7 @@
                     'required' => true,
                     'type' => 'string',
                     'location' => 'header',
-                    'default' => 'application/xml',
+                    'default' => 'application/json',
                 ],
                 'feedType' => [
                     'required' => true,
@@ -100,7 +100,7 @@
                 'file' => [
                     'required' => true,
                     'type' => 'object',
-                    'location' => 'postFile',
+                    'location' => 'multipart',
                 ],
             ],
         ],
@@ -112,7 +112,7 @@
                 'statusCode' => ['location' => 'statusCode'],
             ],
             'additionalProperties' => [
-                'location' => 'xml'
+                'location' => 'json'
             ],
         ]
     ]

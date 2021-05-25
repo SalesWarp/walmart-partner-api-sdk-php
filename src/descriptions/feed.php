@@ -1,5 +1,5 @@
 <?php return [
-    'baseUrl' => 'https://marketplace.walmartapis.com',
+    'baseUri' => 'https://marketplace.walmartapis.com',
     'apiVersion' => 'v3',
     'operations' => [
         'List' => [
@@ -104,7 +104,7 @@
                 'statusCode' => ['location' => 'statusCode'],
             ],
             'additionalProperties' => [
-                'location' => 'xml'
+                'location' => 'json'
             ],
         ]
     ]

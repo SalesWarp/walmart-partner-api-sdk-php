@@ -1,13 +1,14 @@
 <?php
 namespace Walmart;
 
-use Walmart\middleware\AuthSubscriber;
-use Walmart\middleware\MockSubscriber;
-use Walmart\middleware\XmlNamespaceSubscriber;
+// use Walmart\middleware\AuthSubscriber;
+// use Walmart\middleware\MockSubscriber;
+// use Walmart\middleware\XmlNamespaceSubscriber;
 
 use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Command\Guzzle\Description;
+use GuzzleHttp\Command\Guzzle\GuzzleClient;
+use phpseclib\Crypt\Random;
 
 /**
  * Partial Walmart API client implemented with Guzzle.
@@ -15,12 +16,13 @@ use GuzzleHttp\Command\Guzzle\Description;
  */
 class BaseClient extends GuzzleClient
 {
-    const ENV_PROD = 'prod';
+    const ENV_PROD  = 'prod';
     const ENV_STAGE = 'stage';
-    const ENV_MOCK = 'mock';
+    const ENV_MOCK  = 'mock';
 
-    const BASE_URL_PROD = 'https://marketplace.walmartapis.com';
-    const BASE_URL_STAGE = 'https://marketplace.stg.walmartapis.com/gmp-gateway-service-app';
+    const BASE_URL_PROD     = 'https://marketplace.walmartapis.com';
+    // const BASE_URL_STAGE = 'https://marketplace.stg.walmartapis.com/gmp-gateway-service-app';
+    const BASE_URL_STAGE    = 'https://sandbox.walmartapis.com';
 
     public $env;
 
@@ -48,25 +50,44 @@ class BaseClient extends GuzzleClient
         // Set ENV
         $this->env = $env;
 
+        // Code for v3 starts here
+        $authorization = base64_encode(sprintf('%s:%s', $config['consumerId'], $config['privateKey']));
+
+        /*
+         * Add required headers to request
+         */
+        $headers = [
+            'Authorization'         => 'Basic ' . $authorization,
+            'Accept'                => 'application/json',
+            'WM_SVC.NAME'           => 'Walmart Marketplace',
+            'WM_QOS.CORRELATION_ID' => base64_encode(Random::string(16)),
+            'WM_SEC.ACCESS_TOKEN'   => $config['token'],
+        ];
+
         // Apply some defaults.
         $config = array_merge_recursive($config, [
             'max_retries' => 3,
             'http_client_options' => [
                 'defaults' => [
-                    'auth' => [
+                    'auth'       => [
                         $config['consumerId'],
                         $config['privateKey'],
                         $config['token'],
-                    ]
+                    ],
+                    'ApiVersion' => 'v3',
+                    'headers' => $headers,
                 ],
             ],
         ]);
+
+        $config['defaults'] = $config['http_client_options']['defaults'];
+        unset($config['http_client_options']);
 
         // If an override base url is not provided, determine proper baseurl from env
         if ( ! isset($config['description_override']['baseUrl'])) {
             $config = array_merge_recursive($config , [
                 'description_override' => [
-                    'baseUrl' => $this->getEnvBaseUrl($env),
+                    'baseUri' => $this->getEnvBaseUrl($env),
                 ],
             ]);
         }
@@ -75,6 +96,9 @@ class BaseClient extends GuzzleClient
         parent::__construct(
             $this->getHttpClientFromConfig($config),
             $this->getDescriptionFromConfig($config),
+            null,
+            null,
+            null,
             $config
         );
 
@@ -119,18 +143,18 @@ class BaseClient extends GuzzleClient
         /*
          * Attach subscriber for adding auth headers just before request
          */
-        $client->getEmitter()->attach(new AuthSubscriber());
+        // $client->getEmitter()->attach(new AuthSubscriber());
 
         /*
          * Attach subscriber for removing xml namespaces on response
          */
-        $client->getEmitter()->attach(new XmlNamespaceSubscriber());
+        // $client->getEmitter()->attach(new XmlNamespaceSubscriber());
 
         /*
          * If mock env, attach MockSubscriber
          */
         if($this->env === self::ENV_MOCK) {
-            $client->getEmitter()->attach(new MockSubscriber());
+            // $client->getEmitter()->attach(new MockSubscriber());
         }
 
         return $client;

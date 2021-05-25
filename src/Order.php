@@ -1,7 +1,6 @@
 <?php
 namespace Walmart;
 
-use fillup\A2X;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Message\ResponseInterface;
 
@@ -153,28 +152,9 @@ class Order extends BaseClient
             throw new \Exception("purchaseOrderId must be numeric",1448480746);
         }
 
-        $schema = [
-            '/orderCancellation' => [
-                'namespace' => 'ns3',
-                'childNamespace' => 'ns3',
-            ],
-            '/orderCancellation/orderLines' => [
-                'sendItemsAs' => 'orderLine',
-            ],
-            '/orderCancellation/orderLines/orderLine/orderLineStatuses' => [
-                'sendItemsAs' => 'orderLineStatus',
-            ],
-            '@namespaces' => [
-                'ns3' => 'http://walmart.com/mp/v3/orders'
-            ],
-        ];
-
-        $a2x = new A2X($order, $schema);
-        $xml = $a2x->asXml();
-        
         return $this->cancelOrder([
             'purchaseOrderId' => $purchaseOrderId,
-            'order' => $xml,
+            'order' => json_encode($order),
         ]);
     }
 
@@ -191,28 +171,9 @@ class Order extends BaseClient
             throw new \Exception("purchaseOrderId must be numeric",1448480750);
         }
 
-        $schema = [
-            '/orderShipment' => [
-                'namespace' => 'ns3',
-                'childNamespace' => 'ns3',
-            ],
-            '/orderShipment/orderLines' => [
-                'sendItemsAs' => 'orderLine',
-            ],
-            '/orderShipment/orderLines/orderLine/orderLineStatuses' => [
-                'sendItemsAs' => 'orderLineStatus',
-            ],
-            '@namespaces' => [
-                'ns3' => 'http://walmart.com/mp/v3/orders'
-            ],
-        ];
-
-        $a2x = new A2X($order, $schema);
-        $xml = $a2x->asXml();
-
         return $this->shipOrder([
             'purchaseOrderId' => $purchaseOrderId,
-            'order' => $xml,
+            'order' => json_encode($order),
         ]);
     }
 
@@ -229,31 +190,9 @@ class Order extends BaseClient
             throw new \Exception("purchaseOrderId must be numeric",1448480783);
         }
 
-        $schema = [
-            '/orderRefund' => [
-                'namespace' => 'ns3',
-                'childNamespace' => 'ns3',
-            ],
-            '/orderRefund/orderLines' => [
-                'sendItemsAs' => 'orderLine',
-            ],
-            '/orderRefund/orderLines/orderLine/refunds' => [
-                'sendItemsAs' => 'refund',
-            ],
-            '/orderRefund/orderLines/orderLine/refunds/refund/refundCharges' => [
-                'sendItemsAs' => 'refundCharge',
-            ],
-            '@namespaces' => [
-                'ns3' => 'http://walmart.com/mp/v3/orders'
-            ],
-        ];
-
-        $a2x = new A2X($order, $schema);
-        $xml = $a2x->asXml();
-
         return $this->refundOrder([
             'purchaseOrderId' => $purchaseOrderId,
-            'order' => $xml,
+            'order' => json_encode($order),
         ]);
     }
 }
